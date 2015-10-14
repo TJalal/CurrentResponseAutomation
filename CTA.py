@@ -182,13 +182,13 @@ class MyDialog(tkSimpleDialog.Dialog):
 		self.drb6.grid(row=2, columnspan=1,column=3, sticky=W)
 		
 		# Is the Apple Watch docked?
-		self.Docked = IntVar()
-		self.orb6 = Checkbutton(master, text="Docked", onvalue=1, offvalue=0, variable=self.Docked)
+		self.docked = IntVar()
+		self.orb6 = Checkbutton(master, text="Docked", onvalue=1, offvalue=0, variable=self.docked)
 		self.orb6.grid(row=1, columnspan=1,column=4, sticky=W)
 		
 		# Is it a Charging Port?
-		self.ChargingPort = IntVar()
-		self.orb7 = Checkbutton(master, text="Charging Port", onvalue=1, offvalue=0, variable=self.ChargingPort)
+		self.chargingPort = IntVar()
+		self.orb7 = Checkbutton(master, text="Charging Port", onvalue=1, offvalue=0, variable=self.chargingPort)
 		self.orb7.grid(row=2, columnspan=1,column=4, sticky=W)
 
 		defaults.close()	
@@ -291,9 +291,9 @@ class MyDialog(tkSimpleDialog.Dialog):
 		if self.WinXP.get() == 1:
 			selectOS=1
 			hostIPAdd, hostUserID, hostPassword, hostMacAdd, OSID, selectDevice = self.e1.get(), self.e2.get(), self.e3.get(), self.e4.get(), self.e5.get(), self.selectDevice.get()
-			WinXP = collections.namedtuple('WinXP', ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'])
+			WinXP = collections.namedtuple('WinXP', ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'])
 			WinXPData = WinXP(selectOS, hostIPAdd, hostUserID, hostPassword, hostMacAdd, 
-								OSID, selectDevice, deviceOS, deviceConfig, emailAddress)
+								OSID, selectDevice, docked, chargeingPort, deviceOS, deviceConfig, emailAddress)
 		else:
 			selectOS=0
 			WinXP = collections.namedtuple('WinXP', ['a'])
@@ -302,9 +302,9 @@ class MyDialog(tkSimpleDialog.Dialog):
 		if self.WinVista.get() == 1:
 			selectOS=1
 			hostIPAdd, hostUserID, hostPassword, hostMacAdd, OSID, selectDevice = self.e6.get(), self.e7.get(), self.e8.get(), self.e9.get(), self.e10.get(), self.selectDevice.get()
-			WinVista = collections.namedtuple('WinVista', ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'])
+			WinVista = collections.namedtuple('WinVista', ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'])
 			WinVistaData = WinVista(selectOS, hostIPAdd, hostUserID, hostPassword, hostMacAdd, 
-										OSID, selectDevice,deviceOS, deviceConfig, emailAddress)
+										OSID, selectDevice, docked, chargeingPort, deviceOS, deviceConfig, emailAddress)
 		else:
 			selectOS=0
 			WinVista = collections.namedtuple('WinVista', ['a'])
@@ -313,9 +313,9 @@ class MyDialog(tkSimpleDialog.Dialog):
 		if self.Win7.get() == 1:
 			selectOS=1
 			hostIPAdd, hostUserID, hostPassword, hostMacAdd, OSID, selectDevice = self.e11.get(), self.e12.get(), self.e13.get(), self.e14.get(), self.e15.get(), self.selectDevice.get()
-			Win7 = collections.namedtuple('Win7', ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'])
+			Win7 = collections.namedtuple('Win7', ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'])
 			Win7Data = Win7(selectOS, hostIPAdd, hostUserID, hostPassword, hostMacAdd, 
-								OSID, selectDevice, deviceOS, deviceConfig, emailAddress)
+								OSID, selectDevice, docked, chargeingPort, deviceOS, deviceConfig, emailAddress)
 		else:
 			selectOS=0
 			Win7 = collections.namedtuple('Win7', ['a'])
@@ -324,9 +324,9 @@ class MyDialog(tkSimpleDialog.Dialog):
 		if self.Win8.get() == 1:
 			selectOS=1
 			hostIPAdd, hostUserID, hostPassword, hostMacAdd, OSID, selectDevice = self.e16.get(), self.e17.get(), self.e18.get(), self.e19.get(), self.e20.get(), self.selectDevice.get()
-			Win8 = collections.namedtuple('Win8', ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'])
+			Win8 = collections.namedtuple('Win8', ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'])
 			Win8Data = Win8(selectOS, hostIPAdd, hostUserID, hostPassword, hostMacAdd, 
-								OSID, selectDevice, deviceOS, deviceConfig, emailAddress)
+								OSID, selectDevice, docked, chargeingPort, deviceOS, deviceConfig, emailAddress)
 		else:
 			selectOS=0
 			Win8 = collections.namedtuple('Win8', ['a'])
@@ -335,9 +335,9 @@ class MyDialog(tkSimpleDialog.Dialog):
 		if self.Win10.get() == 1:
 			selectOS=1
 			hostIPAdd, hostUserID, hostPassword, hostMacAdd, OSID, selectDevice = self.e21.get(), self.e22.get(), self.e23.get(), self.e24.get(), self.e25.get(), self.selectDevice.get()
-			Win10 = collections.namedtuple('Win10', ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'])
+			Win10 = collections.namedtuple('Win10', ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'])
 			Win10Data = Win10(selectOS, hostIPAdd, hostUserID, hostPassword, hostMacAdd, 
-								OSID, selectDevice, deviceOS, deviceConfig, emailAddress)
+								OSID, selectDevice, docked, chargeingPort, deviceOS, deviceConfig, emailAddress)
 		else:
 			selectOS=0
 			Win10 = collections.namedtuple('Win10', ['a'])
@@ -907,6 +907,9 @@ for i in range(0,4):
 i=1
 for z in range(1):
 	print "Outside for loop z = ", z
+			#Win10 = collections.namedtuple('Win10', ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'])
+			#Win10Data = Win10(selectOS, hostIPAdd, hostUserID, hostPassword, hostMacAdd, 
+			#					OSID, selectDevice, Docked, ChargeingPort, deviceOS, deviceConfig, emailAddress)
 	
 	try:
 		while Data[i][0] != 0:
@@ -924,10 +927,14 @@ for z in range(1):
 			selectDevice = Data[i][6]
 			print "selectDevice =", selectDevice
 			deviceOS = Data[i][7]
-			print "deviceOS =",deviceOS
+			print "Docked =", docked
 			deviceConfig = Data[i][8]
+			print "chargingPort =", chargingPort
+			deviceOS = Data[i][9]
+			print "deviceOS =",deviceOS
+			deviceConfig = Data[i][10]
 			print "deviceConfig =",deviceConfig
-			autoPath = Data[i][9]
+			autoPath = Data[i][11]
 			print " autoPath =", autoPath
 			OS = i+1
 			print "OSID = ", OSID
