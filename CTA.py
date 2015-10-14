@@ -5,17 +5,23 @@ import objc
 import sys
 import WakeOnLan
 #import sendMagicPacket
-from time import gmtime, strftime
+from time import gmtime, strftime, sleep
 from datetime import datetime, timedelta
 from beagle_py import *
 from Tkinter import *
 import tkSimpleDialog
 import collections
 import fileinput
+import pexpect
+import Tkinter
+
 
 from tempfile import mkstemp
 from shutil import move
 from os import remove, close
+from os import listdir
+from os.path import isfile, join
+import glob
 
 # Import smtplib for the actual sending function
 import smtplib
@@ -23,10 +29,11 @@ import smtplib
 # Import the email modules we'll need
 from email.mime.text import MIMEText
 
-initialPath = '/users/tasfinjalal/Desktop/CTA/CTA_Old/python/'
+initialPath = '/users/tasfinjalal/Projects/CurrentResponseAutomation/'
 						
 																		
 class MyDialog(tkSimpleDialog.Dialog):
+
 
 	def body(self, master):
 		
@@ -151,10 +158,10 @@ class MyDialog(tkSimpleDialog.Dialog):
 		v30.set(lines[39].rstrip())
 
 		# Placing fields on UI
-		self.e27.grid(row=0, column=1, columnspan=5, sticky=W)
-		self.e28.grid(row=3, column=1, columnspan=5, sticky=W)
-		self.e29.grid(row=4, column=1, columnspan=5, sticky=W)
-		self.e30.grid(row=5, column=1, columnspan=5, sticky=W)	
+		self.e27.grid(row=0, column=1, columnspan=20, sticky=W)
+		self.e28.grid(row=3, column=1, columnspan=20, sticky=W)
+		self.e29.grid(row=4, column=1, columnspan=20, sticky=W)
+		self.e30.grid(row=5, column=1, columnspan=20, sticky=W)	
 
 		
 		# Radio Buttons for selecting device		
@@ -162,18 +169,28 @@ class MyDialog(tkSimpleDialog.Dialog):
 		self.selectDevice.set("iPhone")
 		self.drb1 = Radiobutton(master, text="iPhone", value="iPhone", variable=self.selectDevice)
 		self.drb2 = Radiobutton(master, text="iPod", value="iPod", variable=self.selectDevice)
-		self.drb3 = Radiobutton(master, text="iPad", value="iPad", variable=self.selectDevice)
-		self.drb4 = Radiobutton(master, text="Apple Watch", value="Watch", variable=self.selectDevice)
+		self.drb3 = Radiobutton(master, text="Apple Watch", value="Watch", variable=self.selectDevice)
+		self.drb4 = Radiobutton(master, text="iPad", value="iPad", variable=self.selectDevice)
+		self.drb5 = Radiobutton(master, text="iPad Mini", value="iPadMini", variable=self.selectDevice)
+		self.drb6 = Radiobutton(master, text="iPad Pro", value="iPadPro", variable=self.selectDevice)
+
 		self.drb1.grid(row=1, columnspan=1,column=1, sticky=W)
 		self.drb2.grid(row=1, columnspan=1,column=2, sticky=W)
 		self.drb3.grid(row=1, columnspan=1,column=3, sticky=W)
 		self.drb4.grid(row=2, columnspan=1,column=1, sticky=W)
+		self.drb5.grid(row=2, columnspan=1,column=2, sticky=W)
+		self.drb6.grid(row=2, columnspan=1,column=3, sticky=W)
 		
 		# Is the Apple Watch docked?
 		self.Docked = IntVar()
 		self.orb6 = Checkbutton(master, text="Docked", onvalue=1, offvalue=0, variable=self.Docked)
-		self.orb6.grid(row=2, columnspan=1,column=2, sticky=W)
+		self.orb6.grid(row=1, columnspan=1,column=4, sticky=W)
 		
+		# Is it a Charging Port?
+		self.ChargingPort = IntVar()
+		self.orb7 = Checkbutton(master, text="Charging Port", onvalue=1, offvalue=0, variable=self.ChargingPort)
+		self.orb7.grid(row=2, columnspan=1,column=4, sticky=W)
+
 		defaults.close()	
 	
 	
@@ -182,8 +199,6 @@ class MyDialog(tkSimpleDialog.Dialog):
 		box = Frame(self)
 		w = Button(box, text="Cancel", width=10, command=self.cancel)
 		w.pack(side=LEFT, padx=5, pady=5)
-#		w = Button(box, text="Set as Defaults", width=15, command=self.setDefault)
-#		w.pack(side=LEFT, padx=5, pady=5)
 		w = Button(box, text="Setup", width=10, command=self.setup)
 		w.pack(side=LEFT, padx=5, pady=5)
 		w = Button(box, text="RUN", width=10, command=self.ok, default=ACTIVE)
@@ -193,6 +208,8 @@ class MyDialog(tkSimpleDialog.Dialog):
 		self.bind("<Escape>", self.cancel)
 
 		box.pack()
+		#w = Button(box, text="Set as Defaults", width=15, command=self.setDefault)
+		#w.pack(side=LEFT, padx=5, pady=5)
 	
 	
 	def setup(self):
@@ -401,7 +418,6 @@ def createResultsFile(OS, device, deviceConfig, autoPath):
 	resultsFile.write('State\t\tCurrent\t\tResult\n')
 	resultsFile.write('======================================\n')
 
-
 def captureCurrent():
 	try:
 		print "in Capture Current"
@@ -422,14 +438,14 @@ def captureCurrent():
 	except:
 		pass
 
-
-def extractCurrent(state, operatingSystem, dev, devConfig, autoPath):
+def extractCurrent(state, operatingSystem, dev, charpo, devConfig, autoPath):
 	
 	# Setting correct current boundaries for each device
 	
-	raftlibs.sui.launchApplicationByName("Terminal")
-	target.delayForTimeInterval_(2)
-	device, deviceConfig, automPath = dev, devConfig, autoPath
+	#raftlibs.sui.launchApplicationByName("Terminal")
+	time.sleep(2)
+	device, chargePort, deviceConfig, automPath = dev, charpo, devConfig, autoPath
+
 	
 	if operatingSystem == 1:
 		OS = "WinXP"
@@ -442,6 +458,7 @@ def extractCurrent(state, operatingSystem, dev, devConfig, autoPath):
 	elif operatingSystem == 5:
 		OS = "Win10"
 
+
 	if dev == "iPhone":
 		initExpRsltUB = 500.000
 		initExpRsltLB = 470.000
@@ -451,18 +468,33 @@ def extractCurrent(state, operatingSystem, dev, devConfig, autoPath):
 	elif dev == "iPad":
 		initExpRsltUB = 1000.000
 		initExpRsltLB = 500.000
+	elif dev == "iPadMini":
+		initExpRsltUB = 1000.000
+		initExpRsltLB = 500.000
+	elif dev == "iPadPro":
+		initExpRsltUB = 1000.000
+		initExpRsltLB = 500.000
 	elif dev == "Watch":
 		initExpRsltUB = 500.000
 		initExpRsltLB = 150.000
 
 	if state == "Awake":
-		iUpperBound = initExpRsltUB
+		if chargePort == 1:
+			iUpperBound = 1500.000
+		else:
+			iUpperBound = 500.00
 		iLowerBound = initExpRsltLB
 	elif state == "Sleep":
-		iUpperBound = 2.5
+		if chargePort == 1:
+			iUpperBound = 2100.000
+		else:
+			iUpperBound = 2.5
 		iLowerBound = 0
 	elif state == "Hibernate":
-		iUpperBound = 0.5
+		if chargePort == 1:
+			iUpperBound = 2100.000
+		else:
+			iUpperBound = 2.5
 		iLowerBound = 0
 	
 	print "Extracting current"
@@ -564,7 +596,6 @@ def changeOS(operatingSystem, hostUserID, OSID):
 	keyboard.typeString_("exit")
 	keyboard.typeVirtualKey_(kVK_Return)
 	
-
 def email(email_addresss, autoPath):
 	# Send an email of the results
 	SENDMAIL = "/usr/sbin/sendmail" # sendmail location
@@ -608,7 +639,6 @@ def email(email_addresss, autoPath):
   	if sts != 0:
 		print "Sendmail exit status ", sts
 
-
 def deleteFiles(autoPath):
 	# Delete Results file, so the new results does not get appeneded
 	import os
@@ -635,17 +665,72 @@ def deleteFiles(autoPath):
 def userInterface():
 	print "Calling userInterface() "
 	# User Interface used to collect necessary information
-	dialog = MyDialog(Tk())
-	#dialog = MyDialog(self)
+	root = Tkinter.Tk()
+	root.title("Current Response Automation")
+	root.withdraw()
+	dialog = MyDialog(root)
 	WinXPData = dialog.result[0]
 	WinVistaData = dialog.result[1]
 	Win7Data = dialog.result[2]
 	Win8Data = dialog.result[3]
 	Win10Data = dialog.result[4]
-	mainloop()
+	dialog.mainloop()
 
 	return WinXPData, WinVistaData, Win7Data, Win8Data, Win10Data
 
+################################################################################################################################
+def TestCase1(OS, hostIPAddress, hostUserID, hostPassword, macAddress, OSID, selectDevice, deviceConfig, autoPath):
+	print "Calling TestCase1 for OS ", OS
+	target.delayForTimeInterval_(3)
+	extractCurrent("Awake", OS, selectDevice, deviceConfig, autoPath)
+	sshToHostAgain(hostUserID, hostIPAddress, hostPassword)
+	target.delayForTimeInterval_(3)
+	keyboard.typeString_("cd C:\\Users\\" + hostUserID + "\\Desktop")
+	keyboard.typeVirtualKey_(kVK_Return)
+	target.delayForTimeInterval_(3)
+	sleepingComputer()
+	extractCurrent("Sleep", OS, selectDevice, deviceConfig, autoPath)
+	wakeComputer(macAddress)
+	sshToHost(hostUserID,hostIPAddress, hostPassword)
+	target.delayForTimeInterval_(10)
+	keyboard.typeString_("cd C:\\Users\\" + hostUserID + "\\Desktop")
+	keyboard.typeVirtualKey_(kVK_Return)
+	target.delayForTimeInterval_(10)
+	hibernatingComputer(OS)
+	target.delayForTimeInterval_(10)	
+	extractCurrent("Hibernate", OS, selectDevice, deviceConfig, autoPath)
+	target.delayForTimeInterval_(30)
+
+
+def TestCaseXP(OS, hostIPAddress, hostUserID, hostPassword, macAddress, OSID, selectDevice, deviceConfig, autoPath):
+	target.delayForTimeInterval_(3)
+	extractCurrent("Awake", OS, selectDevice, deviceConfig, autoPath)
+	#keyboard.typeString_("cd /users/tasfinjalal/.ssh")
+	#keyboard.typeVirtualKey_(kVK_Return)
+	#keyboard.typeString_("rm known_hosts")
+	#keyboard.typeVirtualKey_(kVK_Return)
+	sshToHostAgain(hostUserID, hostIPAddress, hostPassword)
+	target.delayForTimeInterval_(3)
+	keyboard.typeString_("cd C:\\Users\\" + hostUserID + "\\Desktop")
+	keyboard.typeVirtualKey_(kVK_Return)
+	target.delayForTimeInterval_(3)
+	sleepingComputer2()
+	extractCurrent("Sleep", OS, selectDevice, deviceConfig, autoPath)
+	wakeComputer(macAddress)
+	sshToHostAgain(hostUserID, hostIPAddress, hostPassword)
+	target.delayForTimeInterval_(3)
+	keyboard.typeString_("cd C:\\Users\\" + hostUserID + "\\Desktop")
+	keyboard.typeVirtualKey_(kVK_Return)
+	target.delayForTimeInterval_(3)
+	hibernatingComputer2()
+	target.delayForTimeInterval_(30)	
+	extractCurrent("Hibernate", OS, selectDevice, deviceConfig, autoPath)
+	wakeComputer(macAddress)
+	#target.delayForTimeInterval_(60)
+	print "********XP DONE********"
+	target.delayForTimeInterval_(10)
+	email()
+	target.delayForTimeInterval_(60)
 
 ################################################################################################################################
 
@@ -689,9 +774,7 @@ def email3():
   	p.write(fp.read())
   	sts = p.close()
   	if sts != 0:
-		print "Sendmail exit status ", sts
-		
-		
+		print "Sendmail exit status ", sts		
 		
 def userInterface3():
 
@@ -729,7 +812,6 @@ def userInterface3():
 	b.pack()
 
 	mainloop()
-
 
 def userInterface4():
 
@@ -772,11 +854,11 @@ def userInterface4():
 
 
 
-if __name__ == '__main__':
-	# The following code allows this test to be invoked outside the harness and should be left unchanged
-	import os, sys
-	args = [os.path.realpath(os.path.expanduser("/usr/local/bin/raft")), "-f"] + sys.argv
-	os.execv(args[0], args)
+# if __name__ == '__main__':
+# 	# The following code allows this test to be invoked outside the harness and should be left unchanged
+# 	import os, sys
+# 	args = [os.path.realpath(os.path.expanduser("/usr/local/bin/raft")), "-f"] + sys.argv
+# 	os.execv(args[0], args)
 
 
 """
@@ -792,8 +874,114 @@ testVersion      = "0.1"              # Used to differentiate between results fo
 #testState        = DevelopmentState   # Possible values: DevelopmentState, ProductionState
 
 
-def runTest(params):
-	# Your testing code here
+#def runTest(params):
+# Your testing code here
+print "STARTING AUTOMATION..."
 
+#if(target.dock().dockItems()["Terminal"]):
+#	target.dock().dockItems()["Terminal"].click()
+#	target.processes()["Terminal"].menus()["Terminal"].click()
+#	target.processes()["Terminal"].menus()["Terminal"].menuItems()["Quit Terminal"].click()
+
+
+#deleteFiles(CTAFunctions.initialPath)
+#email_address = 'carlos_moreno@apple.com'
+#email('carlos_moreno@apple.com', '/users/carlos/Desktop/python/')
+
+sleep(1)
+Data = userInterface()
+
+WinXPData = Data[0] 
+WinVistaData = Data[1]
+Win7Data = Data[2]
+Win8Data = Data[3]
+Win10Data = Data[4]
+
+for i in range(0,4):
+	try:
+		while Data[i][0] != 0:
+			email_address = Data[i][9]
+			i +=1
+	except IndexError:
+		pass
+i=1
+for z in range(1):
+	print "Outside for loop z = ", z
 	
-	logPass() # This line is implicit and can be removed
+	try:
+		while Data[i][0] != 0:
+			print "While loop "
+			hostIPAddress = Data[i][1]
+			print "hostIPAddress = ",hostIPAddress
+			hostUserID = Data[i][2]
+			print "hostUserID =",hostUserID
+			hostPassword = Data[i][3]
+			print "hostPassword = ", hostPassword 
+			macAddress = Data[i][4]
+			print "macAddress =",macAddress
+			OSID = Data[i][5]
+			print "OSID, = ", OSID
+			selectDevice = Data[i][6]
+			print "selectDevice =", selectDevice
+			deviceOS = Data[i][7]
+			print "deviceOS =",deviceOS
+			deviceConfig = Data[i][8]
+			print "deviceConfig =",deviceConfig
+			autoPath = Data[i][9]
+			print " autoPath =", autoPath
+			OS = i+1
+			print "OSID = ", OSID
+			print "OS ", OS
+		
+		
+			####################################################
+			#
+			# INSERT TEST CASESE HERE
+			#
+			if i==0:
+				TestCaseXP(OS, hostIPAddress, hostUserID, hostPassword, macAddress, OSID, selectDevice, deviceConfig, autoPath)
+									
+			if (target.processes()["raft"].windows()[1]):
+				target.processes()["raft"].windows()[1].click()
+				target.processes()["raft"].windows()[1].closeButton().click()	
+			for x in range(1):
+				print "Calling for range loop below TestCase1 x = ", x, "i = ", i
+				try:
+					#print "Data[i+1] ", Data[i+1], "Data[i][1] ", Data[i][1],"Data[i+1][1] " , Data[i+1][1]
+					if Data[i][0] != 0 and Data[i][1] != 0:
+						
+						sshToHostAgain(hostUserID,hostIPAddress, hostPassword)
+						nextOS =Data[i][0]
+						print "Calling nextOS "
+						nextOSID = Data[i][5]
+						#changeOS(nextOS, hostUserID, nextOSID)
+						#target.delayForTimeInterval_(120)
+						TestCase1(OS, hostIPAddress, hostUserID, hostPassword, macAddress, OSID, selectDevice, deviceConfig, autoPath)
+						#print "running test case 1"
+						break
+					else:
+						pass
+						#pass
+					
+						
+				except IndexError: 
+					print "Index error" + str(i) + "_"
+					exc_type, exc_value, exc_traceback = sys.exc_info()
+					pass
+					print "*** print_exception:"
+						#traceback.print_exception(exc_type, exc_value, exc_traceback,limit=2, file=sys.stdout)
+			i += 1
+			####################################################
+						
+	except IndexError:
+		pass
+else:
+	target.delayForTimeInterval_(30)
+	email(email_address, autoPath)
+
+#sshToHostAgain(hostUserID, hostIPAddress, hostPassword)
+print "*********************END OF AUTOMATION*********************"
+
+
+logPass() # This line is implicit and can be removed			
+	
