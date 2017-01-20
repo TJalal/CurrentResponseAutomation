@@ -1,0 +1,322 @@
+test1
+[94m[1m
+******************** [TEST STARTING] ********************
+[0m
+[01/22/2016 11:54:04] Calling userInterface() 
+[94m[1m
+******************** [TEST STARTING] ********************
+[0m
+[01/23/2016 16:00:20] Calling userInterface() 
+[94m[1m
+******************** [TEST STARTING] ********************
+[0m
+[01/23/2016 16:01:22] Calling userInterface() 
+[95m[1m
+******************** [TEST STARTING] ********************
+[0m
+[94m[01/23/2016 16:38:29] [0mUser has entered information
+[94m[01/23/2016 16:38:29] [0mOperating System 0 not selected.
+[94m[01/23/2016 16:38:29] [0mOperating System 1 not selected.
+[94m[01/23/2016 16:38:29] [0mCalling MainTest for OS  2
+[94m[01/23/2016 16:38:32] [0mSSHing into Host PC
+[94m[01/23/2016 16:38:32] [0mSending password
+[94m[01/23/2016 16:38:32] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:38:32] [0mSSHing into Host PC
+[94m[01/23/2016 16:38:33] [0mSending password
+[94m[01/23/2016 16:38:33] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:38:33] [0mSSHing into Host PC
+[94m[01/23/2016 16:38:33] [0mSending password
+[94m[01/23/2016 16:38:33] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:38:33] [0m[91m[1m[ERROR][0m Host PC is not in correct state
+------------------------------------------------------------
+
+[94m[01/23/2016 16:38:33] [0m[91m[1m[ERROR][0m in sendCommand:  <type 'exceptions.SystemExit'>
+Exception in user code:
+Traceback (most recent call last):
+  File "/Users/tasfinjalal/Documents/Projects/CurrentResponseAutomation/CTA.py", line 940, in <module>
+    MainTest(j, Data[j][1], Data[j][2], Data[j][3], Data[j][4], Data[j][5], Data[j][6], Data[j][7], Data[j][8], Data[j][9], Data[j][10])
+  File "/Users/tasfinjalal/Documents/Projects/CurrentResponseAutomation/CTA.py", line 638, in MainTest
+    sys.exit()
+SystemExit
+
+------------------------------------------------------------
+
+[94m[01/23/2016 16:38:33] [0mCalling MainTest for OS  3
+[94m[01/23/2016 16:38:36] [0mSSHing into Host PC
+[94m[01/23/2016 16:38:36] [0mContinue connecting to host PC
+[94m[01/23/2016 16:38:36] [0mSending password
+[94m[01/23/2016 16:38:37] [0m-- Login OK.
+[94m[01/23/2016 16:38:37] [0mShell command prompt $ 
+[94m[01/23/2016 16:38:39] [0mExtracting current
+[94m[01/23/2016 16:38:39] [0m[91m[1m[ERROR][0m Beagle device is not connected. Please make sure Beagle device is connected and restart the automation.
+
+------------------------------------------------------------
+
+[94m[01/23/2016 16:38:39] [0m[91m[1m[ERROR][0m in sendCommand:  <type 'exceptions.SystemExit'>
+Exception in user code:
+Traceback (most recent call last):
+  File "/Users/tasfinjalal/Documents/Projects/CurrentResponseAutomation/CTA.py", line 940, in <module>
+    MainTest(j, Data[j][1], Data[j][2], Data[j][3], Data[j][4], Data[j][5], Data[j][6], Data[j][7], Data[j][8], Data[j][9], Data[j][10])
+  File "/Users/tasfinjalal/Documents/Projects/CurrentResponseAutomation/CTA.py", line 638, in MainTest
+    sys.exit()
+SystemExit
+
+------------------------------------------------------------
+
+[94m[01/23/2016 16:38:39] [0mCalling MainTest for OS  4
+[94m[01/23/2016 16:38:42] [0mSSHing into Host PC
+[94m[01/23/2016 16:38:42] [0mContinue connecting to host PC
+[94m[01/23/2016 16:38:43] [0mSending password
+[94m[01/23/2016 16:38:43] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:38:43] [0mSSHing into Host PC
+[94m[01/23/2016 16:38:43] [0mSending password
+[94m[01/23/2016 16:38:43] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:38:43] [0mSSHing into Host PC
+[94m[01/23/2016 16:38:43] [0mSending password
+[94m[01/23/2016 16:38:43] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:38:43] [0m[91m[1m[ERROR][0m Host PC is not in correct state
+------------------------------------------------------------
+
+[94m[01/23/2016 16:38:43] [0m[91m[1m[ERROR][0m in sendCommand:  <type 'exceptions.SystemExit'>
+Exception in user code:
+Traceback (most recent call last):
+  File "/Users/tasfinjalal/Documents/Projects/CurrentResponseAutomation/CTA.py", line 940, in <module>
+    MainTest(j, Data[j][1], Data[j][2], Data[j][3], Data[j][4], Data[j][5], Data[j][6], Data[j][7], Data[j][8], Data[j][9], Data[j][10])
+  File "/Users/tasfinjalal/Documents/Projects/CurrentResponseAutomation/CTA.py", line 638, in MainTest
+    sys.exit()
+SystemExit
+
+-----------------------------------------------------------[95m[1m
+******************** [TEST STARTING] ********************
+[0m
+[94m[01/23/2016 16:39:30] [0mUser has entered information
+[94m[01/23/2016 16:39:30] [0mOperating System 0 not selected.
+[94m[01/23/2016 16:39:30] [0mOperating System 1 not selected.
+[94m[01/23/2016 16:39:30] [0mCalling MainTest for OS  2
+[94m[01/23/2016 16:39:33] [0mSSHing into Host PC
+[94m[01/23/2016 16:39:33] [0mContinue connecting to host PC
+[94m[01/23/2016 16:39:34] [0mSending password
+[94m[01/23/2016 16:39:34] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:39:34] [0mSSHing into Host PC
+[94m[01/23/2016 16:39:34] [0mSending password
+[94m[01/23/2016 16:39:34] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:39:34] [0mSSHing into Host PC
+[94m[01/23/2016 16:39:34] [0mSending password
+[94m[01/23/2016 16:39:34] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:39:34] [0m[91m[1m[ERROR][0m Host PC is not in correct state
+------------------------------------------------------------
+
+[94m[01/23/2016 16:39:34] [0m[91m[1m[ERROR][0m in sendCommand:  <type 'exceptions.SystemExit'>
+Exception in user code:
+Traceback (most recent call last):
+  File "/Users/tasfinjalal/Documents/Projects/CurrentResponseAutomation/CTA.py", line 950, in <module>
+    sys.exit()
+SystemExit
+
+------------------------------------------------------------
+
+Issue reading files for  WinXP
+Issue reading files for  WinVista
+Issue reading files for  Win7
+Issue reading files for  Win8
+Issue reading files for  Win10
+Sendmail exit status  None
+[95m[1m******************** [TEST COMPLETED] ********************[0m
+[95m[1m
+******************** [TEST STARTING] ********************
+[0m
+[94m[01/23/2016 16:40:53] [0mUser has entered information
+[94m[01/23/2016 16:40:53] [0mOperating System 0 not selected.
+[94m[01/23/2016 16:40:53] [0mOperating System 1 not selected.
+[94m[01/23/2016 16:40:53] [0mCalling MainTest for OS  2
+[94m[01/23/2016 16:40:56] [0mSSHing into Host PC
+[94m[01/23/2016 16:40:56] [0mContinue connecting to host PC
+[94m[01/23/2016 16:40:56] [0mSending password
+[94m[01/23/2016 16:40:56] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:40:56] [0mSSHing into Host PC
+[94m[01/23/2016 16:40:56] [0mSending password
+[94m[01/23/2016 16:40:56] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:40:56] [0mSSHing into Host PC
+[94m[01/23/2016 16:40:57] [0mSending password
+[94m[01/23/2016 16:40:57] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:40:57] [0m[91m[1m[ERROR][0m Host PC is not in correct state
+[94m[01/23/2016 16:40:57] [0mExiting application...
+Issue reading files for  WinXP
+Issue reading files for  WinVista
+Issue reading files for  Win7
+Issue reading files for  Win8
+Issue reading files for  Win10
+Sendmail exit status  None
+[95m[1m******************** [TEST COMPLETED] ********************[0m
+[95m[1m
+******************** [TEST STARTING] ********************
+[0m
+[94m[01/23/2016 16:46:27] [0mUser has entered information
+[94m[01/23/2016 16:46:27] [0mOperating System 0 not selected.
+[94m[01/23/2016 16:46:27] [0mOperating System 1 not selected.
+[94m[01/23/2016 16:46:27] [0mCalling MainTest for OS  2
+[94m[01/23/2016 16:46:30] [0mSSHing into Host PC
+[94m[01/23/2016 16:46:30] [0mContinue connecting to host PC
+[94m[01/23/2016 16:46:30] [0mSending password
+[94m[01/23/2016 16:46:30] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:46:30] [0mSSHing into Host PC
+[94m[01/23/2016 16:46:31] [0mSending password
+[94m[01/23/2016 16:46:31] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:46:31] [0mSSHing into Host PC
+[94m[01/23/2016 16:46:31] [0mSending password
+[94m[01/23/2016 16:46:31] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:46:31] [0m[91m[1m[ERROR][0m Host PC is not in correct state
+[94m[01/23/2016 16:46:31] [0mExiting application...
+Issue reading files for  WinXP
+Issue reading files for  WinVista
+Issue reading files for  Win7
+Issue reading files for  Win8
+Issue reading files for  Win10
+Sendmail exit status  None
+[95m[1m******************** [TEST COMPLETED] ********************[0m
+[95m[1m
+******************** [TEST STARTING] ********************
+[0m
+[94m[01/23/2016 16:48:34] [0mUser has entered information
+[94m[01/23/2016 16:48:34] [0mOperating System 0 not selected.
+[94m[01/23/2016 16:48:34] [0mOperating System 1 not selected.
+[94m[01/23/2016 16:48:34] [0mCalling MainTest for OS  2
+[94m[01/23/2016 16:48:37] [0mSSHing into Host PC
+[94m[01/23/2016 16:48:37] [0mContinue connecting to host PC
+[94m[01/23/2016 16:48:37] [0mSending password
+[94m[01/23/2016 16:48:37] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:48:37] [0mSSHing into Host PC
+[94m[01/23/2016 16:48:38] [0mSending password
+[94m[01/23/2016 16:48:38] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:48:38] [0mSSHing into Host PC
+[94m[01/23/2016 16:48:38] [0mSending password
+[94m[01/23/2016 16:48:38] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:48:38] [0m[91m[1m[ERROR][0m Host PC is not in correct state
+[94m[01/23/2016 16:48:38] [0mExiting application...
+Sendmail exit status  None
+[95m[1m******************** [TEST COMPLETED] ********************[0m
+[95m[1m
+******************** [TEST STARTING] ********************
+[0m
+[94m[01/23/2016 16:50:32] [0mUser has entered information
+[94m[01/23/2016 16:50:32] [0mOperating System 0 not selected.
+[94m[01/23/2016 16:50:32] [0mOperating System 1 not selected.
+[94m[01/23/2016 16:50:32] [0mCalling MainTest for OS  2
+[94m[01/23/2016 16:50:35] [0mSSHing into Host PC
+[94m[01/23/2016 16:50:35] [0mContinue connecting to host PC
+[94m[01/23/2016 16:50:35] [0mSending password
+[94m[01/23/2016 16:50:35] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:50:35] [0mSSHing into Host PC
+[94m[01/23/2016 16:50:35] [0mSending password
+[94m[01/23/2016 16:50:35] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:50:35] [0mSSHing into Host PC
+[94m[01/23/2016 16:50:35] [0mSending password
+[94m[01/23/2016 16:50:36] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:50:36] [0m[91m[1m[ERROR][0m Host PC is not in correct state
+[94m[01/23/2016 16:50:36] [0mExiting application...
+Sendmail exit status  None
+[95m[1m******************** [TEST COMPLETED] ********************[0m
+[95m[1m
+******************** [TEST STARTING] ********************
+[0m
+[94m[01/23/2016 16:55:25] [0mUser has entered information
+[94m[01/23/2016 16:55:25] [0mOperating System 0 not selected.
+[94m[01/23/2016 16:55:25] [0mOperating System 1 not selected.
+[94m[01/23/2016 16:55:25] [0mCalling MainTest for OS  2
+[94m[01/23/2016 16:55:28] [0mSSHing into Host PC
+[94m[01/23/2016 16:55:29] [0mContinue connecting to host PC
+[94m[01/23/2016 16:55:29] [0mSending password
+[94m[01/23/2016 16:55:29] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:55:29] [0mSSHing into Host PC
+[94m[01/23/2016 16:55:29] [0mSending password
+[94m[01/23/2016 16:55:29] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:55:29] [0mSSHing into Host PC
+[94m[01/23/2016 16:55:29] [0mSending password
+[94m[01/23/2016 16:55:29] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:55:29] [0m[91m[1m[ERROR][0m Host PC is not in correct state
+[94m[01/23/2016 16:55:30] [0mExiting application...
+Sendmail exit status  None
+[95m[1m******************** [TEST COMPLETED] ********************[0m
+[95m[1m
+******************** [TEST STARTING] ********************
+[0m
+[94m[01/23/2016 16:58:55] [0mUser has entered information
+[94m[01/23/2016 16:58:55] [0mOperating System Windows XP not selected.
+[94m[01/23/2016 16:58:55] [0mOperating System Windows Vista not selected.
+[94m[01/23/2016 16:58:55] [0mCalling MainTest for OS  2
+[94m[01/23/2016 16:58:58] [0mSSHing into Host PC
+[94m[01/23/2016 16:58:58] [0mContinue connecting to host PC
+[94m[01/23/2016 16:58:58] [0mSending password
+[94m[01/23/2016 16:58:58] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:58:58] [0mSSHing into Host PC
+[94m[01/23/2016 16:58:58] [0mSending password
+[94m[01/23/2016 16:58:59] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:58:59] [0mSSHing into Host PC
+[94m[01/23/2016 16:58:59] [0mSending password
+[94m[01/23/2016 16:58:59] [0mPermission denied on host. Cant login
+[94m[01/23/2016 16:58:59] [0m[91m[1m[ERROR][0m Host PC is not in correct state
+[94m[01/23/2016 16:58:59] [0mExiting application...
+[95m[1m******************** [TEST COMPLETED] ********************[0m
+[95m[1m
+******************** [TEST STARTING] ********************
+[0m
+[94m[01/23/2016 17:03:52] [0mUser has entered information
+[94m[01/23/2016 17:03:52] [0mOperating System Windows XP not selected.
+[94m[01/23/2016 17:03:52] [0mOperating System Windows Vista not selected.
+[94m[01/23/2016 17:03:52] [0mCalling MainTest for OS  2
+[94m[01/23/2016 17:03:55] [0mSSHing into Host PC
+[94m[01/23/2016 17:03:55] [0mContinue connecting to host PC
+[94m[01/23/2016 17:03:55] [0mSending password
+[94m[01/23/2016 17:03:56] [0mPermission denied on host. Cant login
+[94m[01/23/2016 17:03:56] [0mSSHing into Host PC
+[94m[01/23/2016 17:03:56] [0mSending password
+[94m[01/23/2016 17:03:56] [0mPermission denied on host. Cant login
+[94m[01/23/2016 17:03:56] [0mSSHing into Host PC
+[94m[01/23/2016 17:03:56] [0mSending password
+[94m[01/23/2016 17:03:56] [0mPermission denied on host. Cant login
+[94m[01/23/2016 17:03:56] [0m[91m[1m[ERROR][0m Host PC is not in correct state
+[94m[01/23/2016 17:03:56] [0mExiting application...
+[95m[1m******************** [TEST COMPLETED] ********************[0m
+[95m[1m
+******************** [TEST STARTING] ********************
+[0m
+[94m[01/23/2016 17:05:19] [0mUser has entered information
+[94m[01/23/2016 17:05:19] [0mOperating System Windows XP not selected.
+[94m[01/23/2016 17:05:19] [0mOperating System Windows Vista not selected.
+[94m[01/23/2016 17:05:19] [0mCalling MainTest for OS  2
+[94m[01/23/2016 17:05:22] [0mSSHing into Host PC
+[94m[01/23/2016 17:05:22] [0mContinue connecting to host PC
+[94m[01/23/2016 17:05:22] [0mSending password
+[94m[01/23/2016 17:05:23] [0mPermission denied on host. Cant login
+[94m[01/23/2016 17:05:23] [0mSSHing into Host PC
+[94m[01/23/2016 17:05:23] [0mSending password
+[94m[01/23/2016 17:05:23] [0mPermission denied on host. Cant login
+[94m[01/23/2016 17:05:23] [0mSSHing into Host PC
+[94m[01/23/2016 17:05:23] [0mSending password
+[94m[01/23/2016 17:05:23] [0mPermission denied on host. Cant login
+[94m[01/23/2016 17:05:23] [0m[91m[1m[ERROR][0m Host PC is not in correct state
+[94m[01/23/2016 17:05:23] [0mExiting application...
+[95m[1m******************** [TEST COMPLETED] ********************[0m
+[95m[1m
+******************** [TEST STARTING] ********************
+[0m
+[94m[01/23/2016 17:06:35] [0mUser has entered information
+[94m[01/23/2016 17:06:35] [0mOperating System Windows XP not selected.
+[94m[01/23/2016 17:06:35] [0mOperating System Windows Vista not selected.
+[94m[01/23/2016 17:06:35] [0mCalling MainTest for OS  2
+[94m[01/23/2016 17:06:38] [0mSSHing into Host PC
+[94m[01/23/2016 17:06:38] [0mContinue connecting to host PC
+[94m[01/23/2016 17:06:39] [0mSending password
+[94m[01/23/2016 17:06:39] [0mPermission denied on host. Cant login
+[94m[01/23/2016 17:06:39] [0mSSHing into Host PC
+[94m[01/23/2016 17:06:39] [0mSending password
+[94m[01/23/2016 17:06:39] [0mPermission denied on host. Cant login
+[94m[01/23/2016 17:06:39] [0mSSHing into Host PC
+[94m[01/23/2016 17:06:39] [0mSending password
+[94m[01/23/2016 17:06:39] [0mPermission denied on host. Cant login
+[94m[01/23/2016 17:06:39] [0m[91m[1m[ERROR][0m Host PC is not in correct state
+[94m[01/23/2016 17:06:39] [0mExiting application...
+[95m[1m******************** [TEST COMPLETED] ********************[0m
+[95m[1m
+******************** [TEST STARTING] ********************
+[0m

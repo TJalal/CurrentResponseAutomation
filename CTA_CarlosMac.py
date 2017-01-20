@@ -1,5 +1,4 @@
 #!/usr/bin/python
-# wol.py
 # -*- coding: utf-8 -*-
 import objc
 import sys
@@ -38,7 +37,8 @@ from email.MIMEBase import MIMEBase
 from email import Encoders
 
 global Errorlogs
-Errorlogs = ""
+Errorlogs = ''
+
 initialPath = os.getcwd() + '/Documents/Projects/CurrentResponseAutomation/'
 sshPath = '/users/' + os.getlogin() + '/.ssh/'
 
@@ -195,7 +195,7 @@ class MyDialog(tkSimpleDialog.Dialog):
 		w.pack(side=LEFT, padx=5, pady=5)
 		w = Button(box, text="Setup", width=7, command=self.setup)
 		w.pack(side=LEFT, padx=5, pady=5)
-		w = Button(box, text="Update", width=7, command=self.setDefault)
+		w = Button(box, text="Save", width=7, command=self.setDefault)
 		w.pack(side=LEFT, padx=5, pady=5)
 		w = Button(box, text="RUN", width=7, command=self.ok, default=ACTIVE)
 		w.pack(side=LEFT, padx=5, pady=5)
@@ -312,14 +312,14 @@ def MainTest(OS, hostIPAddress, hostUserID, hostPassword, OSID, macAddress, sele
 		stateCheck(hostUserID, hostIPAddress, hostPassword, "Awake")
 		extractCurrent("Awake", OS, selectDevice, docked, chargingPort, amds, entries)
 		sleepHibernate(hostUserID, hostIPAddress,hostPassword,0) #sleep
-		sleep(20)
+		sleep(30)
 		#stateCheck(hostUserID, hostIPAddress, hostPassword, "Sleep")
 		extractCurrent("Sleep", OS, selectDevice, docked, chargingPort, amds, entries)
 		sleep(10)
 		wakeComputer(macAddress)
 		sleep(30)
 		sleepHibernate(hostUserID, hostIPAddress,hostPassword,1) #hibernate
-		sleep(60)
+		sleep(30)
 		#stateCheck(hostUserID, hostIPAddress, hostPassword, "Hibernate")
 		extractCurrent("Hibernate", OS, selectDevice, docked, chargingPort, amds, entries)
 		sleep(30)
@@ -574,12 +574,12 @@ def extractCurrent(state, operatingSystem, dev, dock, charpo, amds, entries):
 			iLowerBound = initExpRsltLB
 		else:
 			iUpperBound = 2100.00
-			iLowerBound = 100
+			iLowerBound = 100.00
 	else:
 		if state == "Awake":
 			iUpperBound = 500.00
 			iLowerBound = initExpRsltLB
-		elif amds:
+		elif amds and dev != "Watch": #to fix Watch + amds issue
 			iUpperBound = 500.00
 			iLowerBound = initExpRsltLB
 		else:
@@ -599,73 +599,73 @@ def extractCurrent(state, operatingSystem, dev, dock, charpo, amds, entries):
 	if (minC > 2.5 and minC < 100.00):
 		for i in range(len(entries)):
 			if entries[i]['OS'] == OS and entries[i]['HostState'] == state and entries[i]['AMDS'] == amds:
-				entries[i]['MinCurrent'] = maxCurrentValue
-				entries[i]['MinCurrentResult'] = 'FAIL'
+				entries[i]['MinCurrent'] = minCurrentValue
+				entries[i]['MinCurrentResult'] = 'ISSUE'
 				entries[i]['Comments'] = 'Possible Un-configured state'
-		print timeStamp() + "Entries matrix updated - Min Current for", OS, "in", state, "state: FAIL (" + minCurrentValue + "mA)"
+		print timeStamp() + "Entries matrix updated - Min Current for", OS, "in", state, "state: " + (bcolors.WARNING + bcolors.BOLD + "ISSUE" + bcolors.ENDC) + " (" + minCurrentValue + "mA)"
 	elif (minC > iLowerBound):
 		for i in range(len(entries)):
-			if entries[i]['OS'] == OS and entries[i]['HostState'] == 'Awake' and entries[i]['AMDS'] == amds:
+			if entries[i]['OS'] == OS and entries[i]['HostState'] == state and entries[i]['AMDS'] == amds:
 				entries[i]['MinCurrent'] = minCurrentValue
 				entries[i]['MinCurrentResult'] = 'PASS'
-		print timeStamp() + "Entries matrix updated - Min Current for", OS, "in", state, "state: PASS (" + minCurrentValue + "mA)"
+		print timeStamp() + "Entries matrix updated - Min Current for", OS, "in", state, "state: " + (bcolors.OKGREEN + bcolors.BOLD + "PASS" + bcolors.ENDC) + " (" + minCurrentValue + "mA)"
 	else:
 		if amds == 0 and (state == 'Sleep' or state == 'Hibernate'):
 			for i in range(len(entries)):
 				if entries[i]['OS'] == OS and entries[i]['HostState'] == state and entries[i]['AMDS'] == amds:
 					entries[i]['MinCurrent'] = minCurrentValue
 					entries[i]['MinCurrentResult'] = 'PASS'
-			print timeStamp() + "Entries matrix updated - Min Current for", OS, "in", state, "state: PASS (" + minCurrentValue + "mA)"
+			print timeStamp() + "Entries matrix updated - Min Current for", OS, "in", state, "state: " + (bcolors.OKGREEN + bcolors.BOLD + "PASS" + bcolors.ENDC) + " (" + minCurrentValue + "mA)"
 		else:
 			for i in range(len(entries)):
 				if entries[i]['OS'] == OS and entries[i]['HostState'] == state and entries[i]['AMDS'] == amds:
 					entries[i]['MinCurrent'] = minCurrentValue
 					entries[i]['MinCurrentResult'] = 'FAIL'
 					entries[i]['Comments'] = 'Min Current below limit'
-			print timeStamp() + "Entries matrix updated - Min Current for", OS, "in", state, "state: FAIL (" + minCurrentValue + "mA)"
+			print timeStamp() + "Entries matrix updated - Min Current for", OS, "in", state, "state: " + (bcolors.FAIL + bcolors.BOLD + "FAIL" + bcolors.ENDC) + " (" + minCurrentValue + "mA)"
 
 	# Evaluating Max Current
 	if (maxC > 2.5 and maxC < 100.00):
 		for i in range(len(entries)):
 			if entries[i]['OS'] == OS and entries[i]['HostState'] == state and entries[i]['AMDS'] == amds:
 				entries[i]['MaxCurrent'] = maxCurrentValue
-				entries[i]['MaxCurrentResult'] = 'FAIL'
+				entries[i]['MaxCurrentResult'] = 'ISSUE'
 				entries[i]['Comments'] = 'Possible Un-configured state'
-		print timeStamp() + "Entries matrix updated - Max Current for", OS, "in", state, "state: FAIL (" + maxCurrentValue + "mA)"
+		print timeStamp() + "Entries matrix updated - Max Current for", OS, "in", state, "state: " + (bcolors.WARNING + bcolors.BOLD + "ISSUE" + bcolors.ENDC) + " (" + maxCurrentValue + "mA)"
 	elif (maxC < iUpperBound and maxC > iLowerBound):
 		for i in range(len(entries)):
 			if entries[i]['OS'] == OS and entries[i]['HostState'] == state and entries[i]['AMDS'] == amds:
 				entries[i]['MaxCurrent'] = maxCurrentValue
 				entries[i]['MaxCurrentResult'] = 'PASS'
-		print timeStamp() + "Entries matrix updated - Max Current for", OS, "in", state, "state: PASS (" + maxCurrentValue + "mA)"
+		print timeStamp() + "Entries matrix updated - Max Current for", OS, "in", state, "state: " + (bcolors.OKGREEN + bcolors.BOLD + "PASS" + bcolors.ENDC) + " (" + maxCurrentValue + "mA)"
 	else:
 		for i in range(len(entries)):
 			if entries[i]['OS'] == OS and entries[i]['HostState'] == state and entries[i]['AMDS'] == amds:
 				entries[i]['MaxCurrent'] = maxCurrentValue
 				entries[i]['MaxCurrentResult'] = 'FAIL'
 				entries[i]['Comments'] = 'Max Current exceeded limit'
-		print timeStamp() + "Entries matrix updated - Max Current for", OS, "in", state, "state: FAIL (" + maxCurrentValue + "mA)"
+		print timeStamp() + "Entries matrix updated - Max Current for", OS, "in", state, "state: " + (bcolors.FAIL + bcolors.BOLD + "FAIL" + bcolors.ENDC) + " (" + maxCurrentValue + "mA)"
 
 	# Evaluating Average current
 	if (avgC > 2.5 and avgC < 100.00):
 		for i in range(len(entries)):
 			if entries[i]['OS'] == OS and entries[i]['HostState'] == state and entries[i]['AMDS'] == amds:
 				entries[i]['Current'] = avgCurrentValue
-				entries[i]['CurrentResult'] = 'FAIL'
+				entries[i]['CurrentResult'] = 'ISSUE'
 				entries[i]['Comments'] = 'Possible Un-configured state'
-		print timeStamp() + "Entries matrix updated - Avg Current for", OS, "in", state, "state: FAIL (" + avgCurrentValue + "mA)"
+		print timeStamp() + "Entries matrix updated - Avg Current for", OS, "in", state, "state: " + (bcolors.WARNING + bcolors.BOLD + "ISSUE" + bcolors.ENDC) + " (" + avgCurrentValue + "mA)"
 	elif (avgC < iUpperBound and avgC > iLowerBound):
 		for i in range(len(entries)):
 			if entries[i]['OS'] == OS and entries[i]['HostState'] == state and entries[i]['AMDS'] == amds:
 				entries[i]['Current'] = avgCurrentValue
 				entries[i]['CurrentResult'] = 'PASS'
-		print timeStamp() + "Entries matrix updated - Avg Current for", OS, "in", state, "state: PASS (" + avgCurrentValue + "mA)"
+		print timeStamp() + "Entries matrix updated - Avg Current for", OS, "in", state, "state: " + (bcolors.OKGREEN + bcolors.BOLD + "PASS" + bcolors.ENDC) + " (" + avgCurrentValue + "mA)"
 	else:
 		for i in range(len(entries)):
 			if entries[i]['OS'] == OS and entries[i]['HostState'] == state and entries[i]['AMDS'] == amds:
 				entries[i]['Current'] = avgCurrentValue
 				entries[i]['CurrentResult'] = 'FAIL'
-		print timeStamp() + "Entries matrix updated - Avg Current for", OS, "in", state, "state: FAIL (" + avgCurrentValue + "mA)"
+		print timeStamp() + "Entries matrix updated - Avg Current for", OS, "in", state, "state: " + (bcolors.FAIL + bcolors.BOLD + "FAIL" + bcolors.ENDC) + " (" + avgCurrentValue + "mA)"
 
 def amdsToggle(hostIPAddress, hostUserID, hostPassword, amds):
 	try: 
@@ -701,13 +701,13 @@ def amdsToggle(hostIPAddress, hostUserID, hostPassword, amds):
 		if amds:
 			print timeStamp() + "Turning on Apple Mobile Device Service"
 			child.sendline("sc config \"Apple Mobile Device Service\" start= auto")
-			sleep(1)
+			sleep(10)
 			child.sendline("sc start \"Apple Mobile Device Service\"")
 			sleep(1)
 		else:
 			print timeStamp() + "Turning off Apple Mobile Device Service"
 			child.sendline("sc config \"Apple Mobile Device Service\" start= disabled")
-			sleep(1)
+			sleep(10)
 			child.sendline("sc stop \"Apple Mobile Device Service\"")
 			sleep(1)
 
@@ -775,7 +775,6 @@ def changeOS(hostIPAddress, hostUserID, hostPassword, OSID):
 		print "EXITING"
 
 def removeKnownHosts(sshPath):
-
 	try:
 		with open(sshPath + '/known_hosts', 'r'):
 			proc=subprocess.Popen('rm ' + sshPath + 'known_hosts', shell=True, stdout=subprocess.PIPE,)
@@ -825,7 +824,6 @@ def send_mail(email_address, entries, accessories, charpo, amds, devOS, devConfi
 		port = 'Non-Charging'
 
 	results = []
-
 	for i in range(len(entries)):
 		results.append(entries[i]['CurrentResult'])
 		if entries[i]['AMDS']:
@@ -841,6 +839,32 @@ def send_mail(email_address, entries, accessories, charpo, amds, devOS, devConfi
 			resultsclr.append('red')
 		elif i == 'ISSUE':
 			resultsclr.append('orange')
+		else:
+			resultsclr.append('black')
+
+	maxCResultCLR = []
+	minCResultCLR = []
+
+	for i in range(len(entries)):
+		if entries[i]['MaxCurrentResult'] == 'PASS':
+			maxCResultCLR.append('green')
+		elif entries[i]['MaxCurrentResult'] == 'FAIL':
+			maxCResultCLR.append('red')
+		elif entries[i]['MaxCurrentResult'] == 'ISSUE':
+			maxCResultCLR.append('orange')
+		else:
+			maxCResultCLR.append('black')
+
+		if entries[i]['MinCurrentResult'] == 'PASS':
+			minCResultCLR.append('green')
+		elif entries[i]['MinCurrentResult'] == 'FAIL':
+			minCResultCLR.append('red')
+		elif entries[i]['MinCurrentResult'] == 'ISSUE':
+			minCResultCLR.append('orange')
+		else:
+			minCResultCLR.append('black')
+
+
 
 	if 'FAIL' in results:
 		overallResult = 'FAIL'
@@ -882,18 +906,22 @@ def send_mail(email_address, entries, accessories, charpo, amds, devOS, devConfi
 	for i in range(len(entries)):
 		html += """\
 		<tr><td align="center"><b><font color={0}>{1}</font></b></td><td>{2}</td><td>{3}</td><td>{4}</td>
-		<td align="right">{5}</td><td align="right">{6}</td><td align="right">{7}</td><td>{8}</td></tr>
+		<td align="right"><font color={0}>{5}</font></td><td align="right"><font color={6}>{7}</font></td>
+		<td align="right"><font color={8}>{9}</font></td><td>{10}</td></tr>
 		""".format(resultsclr[i],
 					results[i], 
 					entries[i]['OS'], 
 					entries[i]['HostState'], 
 					entries[i]['AMDS'], 
 					entries[i]['Current'], 
-					entries[i]['MaxCurrent'], 
+					maxCResultCLR[i],
+					entries[i]['MaxCurrent'],
+					minCResultCLR[i], 
 					entries[i]['MinCurrent'], 
 					entries[i]['Comments'], 
 					**locals())
-	
+
+
 	if Errorlogs != "":
 		html += """\
 		</table><br>
@@ -977,6 +1005,10 @@ if __name__ == '__main__':
 	if selectedOS[2]:
 		OperatingSystems.append('Windows 10')
 
+	if chargingPort:
+		amds = 0
+
+	# Create Entires array
 	for i in range(len(OperatingSystems)):
 		entries.append({'OS': OperatingSystems[i], 
 						'HostState': 'Awake',
@@ -1051,7 +1083,7 @@ if __name__ == '__main__':
 			try:
 				if selectedOS[i]:
 					if chargingPort:
-						removeKnownHosts()
+						removeKnownHosts(sshPath)
 						MainTest(i, ipAddress, Data[0][i][1], Data[0][i][2], Data[0][i][3], macAddress, selectDevice, docked, chargingPort, amds, entries)
 						sleep(5)
 					else:

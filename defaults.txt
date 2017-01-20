@@ -1,41 +1,23 @@
-WINXP
-17.208.128.60
-desktopqa
-NULL
-002170F5A028
-NULL
-
-WINVISTA
-17.208.130.222
-dti
-desktopqa
-DC0EA14D0CE3
-85adf923-7da2-11e4-8e31-e933edb0da42
+N28D EVT
+B331
+Daytona 14S349
+17.208.131.5
+54EE753B12A3
+tjalal@apple.com
 
 WIN7
-17.208.130.222
-dti
-desktopqa
-DC0EA14D0CE3
-50fe2adf-6411-11e2-a0ef-f2436ebf70c0
+DTMLLUAdminUser
+Testpassword,1
+b8c29b8e-7f06-11e4-8254-54ee753b12a3
 
-WIN8
-17.208.130.222
-dti
-desktopqa
-DC0EA14D0CE3
-cf93a81c-82e8-11e3-8065-9ffe084774f7
+WIN8.1
+DTMLLUAdminUser
+Testpassword,1
+6d69706d-4867-11e5-8a20-5cc5d4189759
 
 WIN10
-17.208.131.40
-ti
-desktop
-DC0EA14D0CE3
-cf93a81c-82e8-11e3-8065-9ffe084774f7
+DTMLLUAdminUser
+Testpassword,1
+6d697066-4867-11e5-8a20-5cc5d4189759
 
-/users/tasfinjalal/Desktop/CTA/CTA_Old/python/
-N66 PVT test5
-B141ac
-Monarch13A344
-tjalal@apple.com
 
